@@ -1,9 +1,7 @@
 // Global scss variables go here
 @import '~antd/dist/antd.css';
-$textColor: #111;
-$lightGray: #cbcbcb;
-$darkGray: #999;
-
+@import '../../assets/styles/variables.scss';
+// Bold Font
 @font-face {
   font-family: MinimalBold;
   font-style: normal;
@@ -12,6 +10,7 @@ $darkGray: #999;
   src:url(../fonts/OTF/OfficeCodePro-Bold.otf) format('otf'),
       url(../fonts/WOFF/OfficeCodePro-Bold.woff) format('woff');
 }
+// Regular Font
 @font-face {
   font-family: MinimalRegular;
   font-style: normal;
@@ -19,6 +18,15 @@ $darkGray: #999;
   font-display: fallback;
   src:url(../fonts/OTF/OfficeCodePro-Regular.otf) format('otf'),
       url(../fonts/WOFF/OfficeCodePro-Regular.woff) format('woff');
+}
+// Light Font
+@font-face {
+  font-family: MinimalLight;
+  font-style: normal;
+  font-weight: normal;
+  font-display: fallback;
+  src:url(../fonts/OTF/OfficeCodePro-Light.otf) format('otf'),
+      url(../fonts/WOFF/OfficeCodePro-Light.woff) format('woff');
 }
 body {
   margin: 0;
@@ -30,7 +38,7 @@ body {
   overflow-x: hidden;
   background: #fff;
   color: $textColor;
-  font-family: MinimalRegular;
+  font-family: MinimalLight;
   code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
