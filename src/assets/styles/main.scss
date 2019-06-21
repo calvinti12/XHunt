@@ -1,0 +1,41 @@
+// Global scss variables go here
+@import '~antd/dist/antd.css';
+$textColor: #111;
+$lightGray: #cbcbcb;
+$darkGray: #999;
+
+@font-face {
+  font-family: MinimalBold;
+  font-style: normal;
+  font-weight: normal;
+  font-display: fallback;
+  src:url(../fonts/OTF/OfficeCodePro-Bold.otf) format('otf'),
+      url(../fonts/WOFF/OfficeCodePro-Bold.woff) format('woff');
+}
+@font-face {
+  font-family: MinimalRegular;
+  font-style: normal;
+  font-weight: normal;
+  font-display: fallback;
+  src:url(../fonts/OTF/OfficeCodePro-Regular.otf) format('otf'),
+      url(../fonts/WOFF/OfficeCodePro-Regular.woff) format('woff');
+}
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  background: #fff;
+  color: $textColor;
+  font-family: MinimalRegular;
+  code {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+  }
+  .container {
+    margin: 0 50px;
+  }
+}
