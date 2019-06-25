@@ -1,0 +1,27 @@
+@import '../../assets/styles/variables.scss';
+.productFilter {
+  margin: 25px 0;
+  position: relative;
+  .selectedTitle {
+    position: absolute;
+    top: 10px;
+    font-size: 22px;
+    font-family: MinimalRegular;
+    left: 0;
+  }
+  .ant-tabs-nav {
+    float: right;
+    .ant-tabs-tab {
+      &:hover {
+        color: $black !important;
+      }
+    }
+  }
+  .ant-tabs-tab-active {
+    color: $black !important;
+    font-family: MinimalBold;
+  }
+  .ant-tabs-ink-bar {
+    background-color: $black !important;
+  }
+}

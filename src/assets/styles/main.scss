@@ -39,11 +39,19 @@ body {
   background: #fff;
   color: $textColor;
   font-family: MinimalLight;
-  code {
-    font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
-  }
   .container {
     margin: 0 50px;
+  }
+  button {
+    &:active,:focus {
+      outline: none !important;
+    }
+  }
+  .ant-btn-link {
+    color: $textColor !important;
+    transition: .3s all ease-in-out;
+    span:hover {
+      border-bottom: 1px solid $textColor;
+    }
   }
 }

@@ -1,7 +1,18 @@
-$textColor: #111;
-$lightGray: #cbcbcb;
-$darkGray: #999;
-$blue: #3b3b3b;
-$blue1: #262687;
+// Colors
+$textColor: #5c5c5c;
+$black: #111;
+$gray1: rgb(242,242,252);
+$blue: #262687;
+$blue1: #e2e5ff;
+$blue2: rgb(204,203,244);
+$blue3: rgb(43,32,202);
+$blue4: rgb(34,29,124);
 $magenta: #a43dbd;
 $pink: #ffe9ea;
+
+// Breakpoint Variables, same as Ant Design
+$xs: 576px;
+$sm: 768px;
+$md: 992px;
+$lg: 1200px;
+$xl: 1600px;

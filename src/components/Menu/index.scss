@@ -1,2 +1,21 @@
+@import '../../assets/styles/variables.scss';
 .header {
+  >div {
+    padding: 15px 0;
+    i {
+      color: $blue1;
+    }
+    h1 {
+      margin: 0 0;
+    }
+  }
+  .rightMenu {
+    text-align: right;
+    button {
+      i {
+        font-size: 20px;
+        color: $textColor;
+      }
+    }
+  }
 }

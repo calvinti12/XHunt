@@ -1,7 +1,9 @@
 import React from 'react';
 import './index.scss';
-const Menu = React.lazy(() => import('../../components/Menu'));
-const Footer = React.lazy(() => import('../../components/Footer'));
+import Menu from '../../components/Menu';
+import Footer from '../../components/Footer';
+import Banner from '../../components/Banner';
+import ProductFilter from '../../components/ProductFilter';
 class HomePage extends React.Component {
   constructor(props) {
     super();
@@ -10,8 +12,12 @@ class HomePage extends React.Component {
     return (
       <div className='container'>
         <div className='homePage'>
+          <Menu />
+          <Banner />
+          <ProductFilter />
           <div className='content'>
           </div>
+          <Footer />
         </div>
       </div>
     )

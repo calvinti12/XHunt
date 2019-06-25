@@ -1,0 +1,13 @@
+@import '../../assets/styles/variables.scss';
+.banner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 250px;
+  padding: 15px;
+  background-color: $blue1;
+  h1 {
+    font-family: MinimalBold;
+  }
+}
