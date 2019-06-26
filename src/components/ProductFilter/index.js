@@ -1,7 +1,7 @@
 import React from 'react';
 import './index.scss';
-import {Tabs,Row,Col} from 'antd';
-const { TabPane } = Tabs;
+import {Tabs} from 'antd';
+const {TabPane} = Tabs;
 class ProductFilter extends React.Component {
   constructor(props) {
     super();

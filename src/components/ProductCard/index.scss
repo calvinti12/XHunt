@@ -1,0 +1,19 @@
+@import '../../assets/styles/mixins.scss'; 
+.productCard {
+  margin: 15px 0;
+  .productImage {
+    background: #eee;
+    border: 1px solid #efefef;
+    overflow: hidden;
+    max-height: 350px;
+    img {
+      min-height: 350px;
+    }
+  }
+  p {
+    @include textTruncate(13px, 18px, 2);
+    box-sizing: border-box;
+    margin: 15px 0;
+    text-align: center;
+  }
+}

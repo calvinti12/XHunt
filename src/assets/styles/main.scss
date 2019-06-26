@@ -54,4 +54,8 @@ body {
       border-bottom: 1px solid $textColor;
     }
   }
+  .img-responsive { 
+    width: 100%;
+    height: auto; 
+  }
 }
