@@ -1,27 +1,56 @@
 @import '../../assets/styles/variables.scss';
 .productFilter {
-  margin: 25px 0;
-  position: relative;
-  .selectedTitle {
-    position: absolute;
-    top: 10px;
-    font-size: 22px;
-    font-family: MinimalRegular;
-    left: 0;
+  width: 80vw;
+  margin: 25px auto 25px auto;
+  // display: flex;
+  // justify-content: center;
+  // align-items: center;
+  // background-color: #fff;
+  // height: 80px;
+  // border:1px solid #eee;
+  // border-radius: 50px;
+  // * {
+  //   border-color: transparent !important;
+  // }
+  .ant-input {
+    &:first-child {
+      border-right-color: #fff !important;
+      border-top-right-radius: 0 !important;
+      border-bottom-right-radius: 0 !important;
+    } 
   }
-  .ant-tabs-nav {
-    float: right;
-    .ant-tabs-tab {
-      &:hover {
-        color: $black !important;
+  .ant-select {
+    width: 100%;
+    .ant-select-selection {
+      border-radius: 0 !important;
+      border-right-color: transparent !important;
+      // border-top-left-radius: 0 !important;
+      // border-bottom-left-radius: 0 !important;
+    }
+  }
+  .priceRange {
+    position: relative;
+    span {
+      position: absolute;
+      top: 50%;
+      left: 44%;
+      z-index: 99999;
+      transform: translateY(-50%);
+    }
+    .ant-input {
+      width: 50%;
+      &:first-child {
+        border-radius: 0 !important;
+        border-right-color: transparent !important;
+      }
+      &:last-child {
+        border-left-color: transparent !important;
+        border-radius: 0 !important;
       }
     }
   }
-  .ant-tabs-tab-active {
-    color: $black !important;
-    font-family: MinimalBold;
-  }
-  .ant-tabs-ink-bar {
-    background-color: $black !important;
+  .ant-btn {
+    border-radius: 0 !important;
+    padding: 0 25px !important; 
   }
 }

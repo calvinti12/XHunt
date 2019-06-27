@@ -15,9 +15,6 @@ class Menu extends React.Component {
           <Col span={12}>
             <div className='rightMenu'>
               <Button type="link">
-                <Icon type="search" theme="outlined" />
-              </Button>
-              <Button type="link">
                 <Icon type="shopping" theme="outlined" />
               </Button>
               <Button type="link">Login</Button>

@@ -1,7 +1,16 @@
 @import '../../assets/styles/variables.scss'; 
 .homePage {
   overflow: hidden;
-  .content {
-    min-width: calc(100vh - 64px - 128px);
+  .loader {
+    margin-top: 60px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    .anticon {
+      display: block;
+      font-size: 40px;
+    }
   }
 }

@@ -1,19 +1,21 @@
-@import '../../assets/styles/mixins.scss'; 
-.productCard {
-  margin: 15px 0;
-  .productImage {
+@import '../../assets/styles/mixins.scss';
+.ant-card {
+  margin: 16px 0 !important;
+  .ant-card-cover {
     background: #eee;
-    border: 1px solid #efefef;
-    overflow: hidden;
-    max-height: 350px;
+    // height: 300px;
+    border-bottom: 1px solid #eee;
     img {
-      min-height: 350px;
+      width: 100%;
+      height: auto;
     }
   }
-  p {
-    @include textTruncate(13px, 18px, 2);
-    box-sizing: border-box;
-    margin: 15px 0;
-    text-align: center;
+  .ant-card-body {
+    padding: 16px !important;
+    height: 110px;
+    .ant-card-meta-description {
+      @include textTruncate(13px, 18px, 3);
+    }
   }
+  .ant-card-actions {}
 }

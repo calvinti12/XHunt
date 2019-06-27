@@ -42,6 +42,13 @@ body {
   .container {
     margin: 0 50px;
   }
+  .ant-input,.ant-select-selection {
+    &:hover, &:focus {
+      outline: none !important;
+      box-shadow: 0 0 !important;
+      border-color: #aaa !important;
+    }
+  }
   button {
     &:active,:focus {
       outline: none !important;

@@ -1,6 +1,6 @@
 import React from 'react';
 import './index.scss';
-import {Row,Col} from 'antd';
+import {Row,Col,Icon} from 'antd';
 import Menu from '../../components/Menu';
 import Footer from '../../components/Footer';
 import Banner from '../../components/Banner';
@@ -30,7 +30,7 @@ class HomePage extends React.Component {
   render() {
     const {products, dataLoaded} = this.state;
     const productItems = dataLoaded && products.map(item => (
-      <Col xs={24} sm={12} md={8} lg={6}  key={item.id}>
+      <Col xs={24} sm={12} md={8} lg={6} xl={4} key={item.id}>
         <ProductCard {...item} />
       </Col>
     ));
@@ -40,11 +40,10 @@ class HomePage extends React.Component {
           <Menu />
           <Banner />
           <ProductFilter />
-          <div className='content'>
+            {!dataLoaded && <div className="loader"><Icon type="loading" /><h2>Fetching Products...</h2></div>}
             <Row gutter={24}>
-              {productItems}
-            </Row>
-          </div>
+              {dataLoaded && productItems}
+            </Row>   
           <Footer />
         </div>
       </div>
