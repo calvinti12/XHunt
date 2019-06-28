@@ -2,16 +2,6 @@
 .productFilter {
   width: 80vw;
   margin: 25px auto 25px auto;
-  // display: flex;
-  // justify-content: center;
-  // align-items: center;
-  // background-color: #fff;
-  // height: 80px;
-  // border:1px solid #eee;
-  // border-radius: 50px;
-  // * {
-  //   border-color: transparent !important;
-  // }
   .ant-input {
     &:first-child {
       border-right-color: #fff !important;
@@ -24,8 +14,6 @@
     .ant-select-selection {
       border-radius: 0 !important;
       border-right-color: transparent !important;
-      // border-top-left-radius: 0 !important;
-      // border-bottom-left-radius: 0 !important;
     }
   }
   .priceRange {
