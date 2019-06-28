@@ -13,4 +13,9 @@
       font-size: 40px;
     }
   }
+  @media (min-width: $lg) {
+    .ant-col-xl-4 {
+      width: 20%;
+    }
+  }
 }

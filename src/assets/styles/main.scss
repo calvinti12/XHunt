@@ -50,7 +50,7 @@ body {
     }
   }
   button {
-    &:active,:focus {
+    &:active,&:focus {
       outline: none !important;
     }
   }
@@ -60,9 +60,5 @@ body {
     span:hover {
       border-bottom: 1px solid $textColor;
     }
-  }
-  .img-responsive { 
-    width: 100%;
-    height: auto; 
   }
 }

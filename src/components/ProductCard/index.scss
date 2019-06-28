@@ -2,9 +2,10 @@
 .ant-card {
   margin: 16px 0 !important;
   .ant-card-cover {
-    background: #eee;
-    // height: 300px;
+    background: #fff;
     border-bottom: 1px solid #eee;
+    height: 275px;
+    overflow: hidden;
     img {
       width: 100%;
       height: auto;
@@ -17,5 +18,9 @@
       @include textTruncate(13px, 18px, 3);
     }
   }
-  .ant-card-actions {}
+  .ant-card-actions {
+    >li {
+      margin: 6px 0;
+    }
+  }
 }
