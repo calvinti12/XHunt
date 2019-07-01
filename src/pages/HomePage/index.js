@@ -6,7 +6,7 @@ import InfiniteScroll from 'react-infinite-scroller';
 import Menu from '../../components/Menu';
 import Footer from '../../components/Footer';
 import Banner from '../../components/Banner';
-import ProductFilter from '../../components/ProductFilter';
+import ProductFilter from '../../components/ProductFilter1';
 import ProductCard from '../../components/ProductCard';
 import ProductService from '../../services/products';
 export default class HomePage extends React.Component {

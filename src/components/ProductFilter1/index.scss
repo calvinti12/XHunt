@@ -1,0 +1,49 @@
+@import '../../assets/styles/variables.scss';
+.productFilter {
+  width: 50vw;
+  height: 75px;
+  margin: -40px auto 25px auto;
+  background-color: #fff;
+  border: 1px solid #fafafa;
+  box-shadow: 0 5px 16px 3px rgba(200,200,200, .2);
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  transition: .2s all ease-in-out;
+  &:hover, &:focus {
+    box-shadow: 0 7px 16px 3px rgba(200,200,200, .3);
+  }
+  .inputFilter {
+    border-right: 1px solid #eee;
+    input {
+      border-color: transparent;
+      width: 94%;
+      height: 72px;
+      outline: none;
+      border-radius: 50px;
+      font-size: 16px;
+      padding: 0 15px 0 25px;
+    }
+  }
+  .sortSelect {
+    margin-top: 15px;
+    padding: 0 15px;
+    label {
+      font-size: 13px;
+      color: #888;
+    }
+    .ant-select {
+      width: 100%;
+      .ant-select-selection {
+        border-color: transparent;
+        border-radius: 50px;
+        &:focus, &:hover {
+          border-color: transparent !important;
+        }
+        .ant-select-selection__rendered {
+          margin: 0 !important;         
+        }
+      }
+    }
+  }
+}
