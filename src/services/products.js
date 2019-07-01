@@ -1,15 +1,13 @@
-// Body params
-// 1- category: 'all','fashion','sports','health_beauty','home_garden','kids_baby','automotive','men','women'
-// 2- range: 'top','weekly'
 import API from './api';
 class Products extends API {
-  //https://docs.aliseeks.com/api/#search-best-selling-products-realtime
   getBestSellingProducts(params) {
     const bodyParams = {
-      range: (params && params.range) || "top",
-      // category: (params && params.category) || "all",
-      locale: (params && params.locale) || "en_US",
-      currency: (params && params.currency) || "USD",
+      category: params.category || 44,
+      sortDirection: "ASC",
+      ratingsRange: params.ratingsRange || {from: 4, to: 5},
+      priceRange: params.priceRange || {},
+      skip: params.skip || 0,
+      limit: 25
     };
     return fetch(`${this.base_url}search/`, {
       method: "post",
@@ -26,6 +24,8 @@ class Products extends API {
       sortDirection: "ASC",
       ratingsRange: params.ratingsRange || {},
       priceRange: params.priceRange || {},
+      skip: params.skip || 0,
+      limit: 25
     };
     return fetch(`${this.base_url}search/`, {
       method: "post",

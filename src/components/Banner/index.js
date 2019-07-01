@@ -8,7 +8,7 @@ class Banner extends React.Component {
     return (
       <div className='banner'>
         <h1>Premium products only a click away!</h1>
-        <p>Find all the best selling products on AliExpress on a single platform.</p>
+        <p>Find all the best selling products of AliExpress on a single platform.</p>
       </div>
     )
   }
