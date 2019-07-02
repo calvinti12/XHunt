@@ -15,14 +15,21 @@
   }
   .inputFilter {
     border-right: 1px solid #eee;
+    i {
+      position: absolute;
+      top: 25px;
+      left: 20px;
+      font-size: 22px;
+      cursor: pointer;
+    }
     input {
       border-color: transparent;
-      width: 94%;
+      width: 100%;
       height: 72px;
       outline: none;
       border-radius: 50px;
       font-size: 16px;
-      padding: 0 15px 0 25px;
+      padding: 0 15px 0 50px;
     }
   }
   .sortSelect {
@@ -30,10 +37,12 @@
     padding: 0 15px;
     label {
       font-size: 13px;
+      line-height: 0 !important;
       color: #888;
     }
     .ant-select {
       width: 100%;
+      line-height: 0 !important;
       .ant-select-selection {
         border-color: transparent;
         border-radius: 50px;
@@ -42,6 +51,10 @@
         }
         .ant-select-selection__rendered {
           margin: 0 !important;         
+          line-height: 20px;
+        }
+        .ant-select-arrow {
+          margin-top: -10px;
         }
       }
     }
