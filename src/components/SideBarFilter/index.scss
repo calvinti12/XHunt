@@ -1,0 +1,12 @@
+@import '../../assets/styles/variables.scss';
+.sideBarFilter {
+  p {
+    font-size: 17px;
+    margin: 12px 0;
+    cursor: pointer;
+    font-size: $textColor;
+    &:hover {     
+      font-weight: 600;
+    }
+  }
+}

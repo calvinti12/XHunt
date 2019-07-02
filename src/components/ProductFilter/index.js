@@ -1,83 +1,86 @@
 import React from 'react';
 import './index.scss';
-import {Input,Select,Row,Col,Button,Icon} from 'antd';
-const InputGroup = Input.Group;
+import FilterInfo from '../../shared/filterInfo';
+import {Input,Select,Row,Col,Icon, Slider, Checkbox} from 'antd';
 const {Option} = Select;
-class ProductFilter extends React.Component {
+export default class ProductFilter extends React.Component {
   constructor(props) {
     super(props);
-    this.ratings = Array(4).fill(1).map((item,index) => index+1);
-    this.categories = [
-      {id:44,label: "Consumer Electronics"},
-      {id:13,label: "Home Improvement"},
-      {id:100003070,label:"Men Apparel"},
-      {id:100003109	,label:"Women Apparel"},
-      {id:18,label:"Sports & Entertainment"},
-      {id:100001622,label:"Baby Toys"}
-    ];
+    this.filterInfo = new FilterInfo();
+    this.categories = [...this.filterInfo.sortOptions];
     this.state = {
       searchText: "",
-      rating: this.ratings[0],
       category: this.categories[0].id,
-      lowPrice: null,
-      highPrice: null,
     };
   }
+
   handleInputChange = (e) => {
     e.persist();
-    const {name,value} = e.target;
     this.setState({
-      [name]: value
-    })
+      searchText: e.target.value,
+    });
   }
 
   searchOnEnter = (e) => {
     e.persist();
-    if (e.keyCode === 13) this.searchBtn();
+    if (e.keyCode === 13) this.searchBtn(e);
   }
 
-  searchBtn = () => {
-    const {lowPrice, highPrice} = this.state;
-    const params = {
-      ...this.state,
-      ratingsRange: {from: this.state.rating, to: 5}
-    };
-    if (lowPrice !== null && highPrice !== null) params.priceRange = {from: lowPrice, to: highPrice};
-    this.props.searchParams(params);
+  searchBtn = (e) => {
+    e.persist();
+    this.props.searchParams({...this.state});
   }
-  
+
+  priceSliderFormatter = (value) => {
+    return `$${value}+`;
+  }
+
+  ordersSliderFormatter = (value) => {
+    return `${value}+`;
+  }
+
+  sortDirectionChange = (e) => {
+
+  }
+
   render() {
-    const categoriesOptions = this.categories.map(item => <Option value={item.id} key={item.id}>{item.label}</Option>);
-    const ratingOptions = this.ratings.map(item => <Option value={item} key={item}>{`${item}+`}</Option>);
+    const sortOptions = this.categories.map(item => <Option value={item.id} key={item.id}>{item.label}</Option>);
+    const categoriesOptions = this.categories.map((item, index) => <Option value={item.id} key={item.id}>{item.label}</Option>);
     return (
       <div className="productFilter">
-        <Row>
-          <Col sm={12} md={8}>
-            <Input name="searchText" onChange={this.handleInputChange} onKeyUp={this.searchOnEnter} placeholder="Search products..." size="large"/>
-          </Col>
-          <Col sm={12} md={6}>
-            <Select name="categorySelected" defaultValue={this.categories[0].label} size="large" onChange={(e) => this.setState({category: e})}>
-              {categoriesOptions}
+        <div className="searchBar">
+          <Row>
+            <Col xs={16} className="inputFilter">
+              <Icon type="search" onClick={this.searchBtn} />
+              <input placeholder="Search any product..." onChange={this.handleInputChange} onKeyUp={this.searchOnEnter}/>
+            </Col>
+            <Col xs={8} className="sortSelect">
+              <label>Sort By:</label>
+              <Select name="categorySelected" defaultValue={this.categories[0].label} onChange={(e) => this.setState({category: e})}>
+                {sortOptions}
+              </Select>
+            </Col>
+          </Row>
+        </div>
+        <div className="extraFilters">
+          <Row gutter={24}>
+            <Col md={8}>
+              <p>Sort By:</p>
+              <Select defaultValue={this.categories[0].label} onChange={(e) => this.setState({category: e})}>
+              {sortOptions}
             </Select>
-          </Col>
-          <Col sm={10} md={2}>
-            <Select name="rating" defaultValue={this.ratings[0]} size="large" onChange={(e) => this.setState({rating: e})}>
-              {ratingOptions}
-            </Select>
-          </Col>
-          <Col sm={10} md={4} className="priceRange">
-            <Input name="lowPrice" placeholder="Min" size="large" maxLength={5} onChange={this.handleInputChange}/>
-             <span>-</span>
-            <Input name="highPrice" placeholder="Max" size="large" maxLength={5} onChange={this.handleInputChange}/>
-          </Col>
-          <Col sm={4} md={2}>
-            <Button type="primary" size="large" onClick={this.searchBtn} onKeyUp={this.searchOnEnter}>
-              <Icon type="search" />
-            </Button>
-          </Col>
-        </Row>
+            </Col>
+            <Col md={8}>
+              <p>Price Range</p>
+              <Slider defaultValue={0} min={0} step={10} tipFormatter={this.priceSliderFormatter} />
+            </Col>
+            <Col md={8}>
+              <p># of Orders</p>
+              <Slider defaultValue={0} min={0} step={10} tipFormatter={this.ordersSliderFormatter} />
+            </Col>
+          </Row>
+        </div>
       </div>
     )
   }
 }
-export default ProductFilter;

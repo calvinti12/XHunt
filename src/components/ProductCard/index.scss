@@ -13,8 +13,8 @@
     }
   }
   .ant-card-body {
-    padding: 16px !important;
-    height: 110px;
+    padding: 12px !important;
+    // height: 110px;
     .ant-card-meta-description {
       @include textTruncate(13px, 18px, 3);
     }

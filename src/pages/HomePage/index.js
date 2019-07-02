@@ -7,8 +7,9 @@ import FilterInfo from '../../shared/filterInfo';
 import Menu from '../../components/Menu';
 import Footer from '../../components/Footer';
 import Banner from '../../components/Banner';
-import ProductFilter from '../../components/ProductFilter1';
+import ProductFilter from '../../components/ProductFilter';
 import ProductCard from '../../components/ProductCard';
+import SideBarFilter from "../../components/SideBarFilter";
 import ProductService from '../../services/products';
 export default class HomePage extends React.Component {
   constructor(props) {
@@ -84,7 +85,7 @@ export default class HomePage extends React.Component {
     let {products, dataLoaded} = this.state;
     products = products || [];
     const productItems = dataLoaded && products.map((item) =>(
-      <Col xs={24} sm={12} md={8} lg={6} xl={4} key={item.id}>
+      <Col xs={24} sm={12} md={12} lg={8} xl={6} key={item.id}>
         <ProductCard {...item} />
       </Col>
     ));
@@ -103,7 +104,14 @@ export default class HomePage extends React.Component {
           <Banner />
           <ProductFilter searchParams={this.searchProduct} />
             {!dataLoaded && loader}
-            <Row gutter={16} type="flex" justify="center">
+            <Row gutter={12}>
+              <Col sm={24} md={5}>
+                <SideBarFilter />
+              </Col>
+              <Col sm={24} md={19}>
+                {dataLoaded && productItems}
+                {dataLoaded && !productItems.length && alert}
+              </Col>
               {/* <InfiniteScroll
                 pageStart={0}
                 loadMore={this.searchProduct}
@@ -112,8 +120,6 @@ export default class HomePage extends React.Component {
                 useWindow={false}>
                 {dataLoaded && productItems}
               </InfiniteScroll> */}
-              {dataLoaded && productItems}
-              {dataLoaded && !productItems.length && alert}
             </Row>
           <Footer />
         </div>
