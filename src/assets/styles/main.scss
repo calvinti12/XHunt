@@ -1,6 +1,6 @@
 // Global scss variables go here
 @import '~antd/dist/antd.css';
-@import '../../assets/styles/variables.scss';
+@import './variables.scss' , './utilities.scss' , './mixins.scss';
 // Bold Font
 @font-face {
   font-family: MinimalBold;

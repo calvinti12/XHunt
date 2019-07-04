@@ -105,10 +105,10 @@ export default class HomePage extends React.Component {
           <ProductFilter searchParams={this.searchProduct} />
             {!dataLoaded && loader}
             <Row gutter={12}>
-              <Col sm={24} md={5}>
+              {/* <Col sm={24} md={5}>
                 <SideBarFilter />
-              </Col>
-              <Col sm={24} md={19}>
+              </Col> */}
+              <Col sm={24} md={24}>
                 {dataLoaded && productItems}
                 {dataLoaded && !productItems.length && alert}
               </Col>

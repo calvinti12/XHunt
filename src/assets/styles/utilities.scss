@@ -1,4 +1,15 @@
-.img-responsive { 
-  width: 100%;
-  height: auto; 
+.roundBorderSelect {
+  .ant-select-selection {
+    border-radius: 50px !important;
+  }
+}
+.imgResponsive { 
+  width: 100% !important;
+  height: auto !important; 
+}
+.floatRight {
+  float: right !important;
+}
+.floatLeft {
+  float: left !important;
 }
