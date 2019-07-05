@@ -11,9 +11,11 @@ export default class ProductFilter extends React.Component {
     this.sortOptions = [...this.filterInfo.sortOptions];
     this.state = {
       searchText: "",
-      category: this.categories[1].id,
+      category: this.categories[0].id,
       sortDirection: "ASC",
       sortBy: 0,
+      priceRange: {from: 0},
+      orderRange: {from: 10},
       toggleFilterVisibility: false,
     };
   }
@@ -35,12 +37,8 @@ export default class ProductFilter extends React.Component {
     this.props.searchParams({...this.state});
   }
 
-  priceSliderFormatter = (value) => {
-    return `$${value}+`;
-  }
-
-  ordersSliderFormatter = (value) => {
-    return `${value}+`;
+  sliderFormatter = (value, type) => {
+    return type === "price" ? `$${value}+` : type === "order" ? `${value}+` : value;
   }
 
   toggleFilterVisibilityBtn = (e) => {
@@ -48,6 +46,12 @@ export default class ProductFilter extends React.Component {
     this.setState((state) => ({
       toggleFilterVisibility: !state.toggleFilterVisibility
     }));
+  }
+
+  onSliderChange = (e, name) => {
+    this.setState({
+      [name] : {from : e}
+    });
   }
 
   render() {
@@ -82,8 +86,8 @@ export default class ProductFilter extends React.Component {
             <Row gutter={12} className={toggleFilterVisibility ? "fadeInDown" : "fadeOutUp"}>
               <Col md={12} lg={4}>
                 <p>Sort By:</p>
-                <Select className="roundBorderSelect" defaultValue={defaultSortValue} onChange={(e) => this.setState({category: e})}>
-                {sortOptions}
+                <Select className="roundBorderSelect" defaultValue={defaultSortValue} onChange={(e) => this.setState({sortBy: e})}>
+                  {sortOptions}
                 </Select>
               </Col>
               <Col md={12} lg={6}>
@@ -94,11 +98,11 @@ export default class ProductFilter extends React.Component {
               </Col>
               <Col md={12} lg={7}>
                 <p>Price Range:</p>
-                <Slider defaultValue={0} min={0} step={10} name="priceSlider" tipFormatter={this.priceSliderFormatter} />
+                <Slider defaultValue={0} min={0} step={10} tipFormatter={e => this.sliderFormatter(e, "price")} onChange={e => this.onSliderChange(e,'priceRange')} />
               </Col>
               <Col md={12} lg={7}>
                 <p># of Orders:</p>
-                <Slider defaultValue={10} min={10} step={10} tipFormatter={this.ordersSliderFormatter} />
+                <Slider defaultValue={10} min={10} step={10} tipFormatter={e=> this.sliderFormatter(e, "order")} onChange={e => this.onSliderChange(e,'orderRange')} />
               </Col>
             </Row>
           </div>

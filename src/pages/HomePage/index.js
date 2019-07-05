@@ -9,7 +9,6 @@ import Footer from '../../components/Footer';
 import Banner from '../../components/Banner';
 import ProductFilter from '../../components/ProductFilter';
 import ProductCard from '../../components/ProductCard';
-import SideBarFilter from "../../components/SideBarFilter";
 import ProductService from '../../services/products';
 export default class HomePage extends React.Component {
   constructor(props) {
@@ -17,11 +16,10 @@ export default class HomePage extends React.Component {
     this.ps = new ProductService();
     this.filterInfo = new FilterInfo();
     this.bestSellingProductsParams = {
-      category: 44,
+      category: this.filterInfo.categories[0].id,
       sortDirection: "ASC",
-      ratingsRange: {from: 4, to: 5},
-      priceRange: {from: 0, to: 25},
-      ordersRange: {from: 100},
+      ratingsRange: {from: 4},
+      orderRange: {from: 50},
       skip: 0,
       limit: 25
     };
@@ -31,7 +29,6 @@ export default class HomePage extends React.Component {
     this.state = {
       dataLoaded: false,
       products: [],
-      searchParams: {},
     }
   }
   componentDidMount() {
@@ -39,28 +36,26 @@ export default class HomePage extends React.Component {
   }
 
   getBestSellingProducts = () => {
-    // this.ps.getBestSellingProducts(this.bestSellingProductsParams)
-    //   .then((res) => {
-    //     if (Array.isArray(res)) this.apiError = res;
-    //     this.setState({
-    //       dataLoaded: true,
-    //       products: res.items,
-    //     });
-    //   })
-    //   .catch(err => {console.log(err);})
+    this.ps.searchProducts(this.bestSellingProductsParams)
+      .then((res) => {
+        if (Array.isArray(res)) this.apiError = res;
+        this.setState({
+          dataLoaded: true,
+          products: res.items,
+        });
+      })
+      .catch(err => {console.log(err);})
   }
 
   searchProduct = (values) => {
-    console.log(values);
     this.setState({
       dataLoaded: false,
-      searchParams: {...values, category: 44}
     });
-    this.ps.searchProducts({...values, category: 44})
+    this.ps.searchProducts({...values})
       .then((res) => {
         this.totalSearchItems = (res && res.aggregation && res.aggregation.totalCount) || 0;
         this.filterInfo.products = [...res.items];
-        const sortedProducts = this.filterInfo.sortProducts(values.category,"ASC");
+        const sortedProducts = this.filterInfo.sortProducts(values.sortBy, values.sortDirection);
         this.setState({
           dataLoaded: true,
           products: [...sortedProducts],

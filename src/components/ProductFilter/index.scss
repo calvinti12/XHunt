@@ -64,6 +64,9 @@
   }
   .extraFilters {
     margin: 0 5px;
+    .ant-btn-link {
+      font-size: 11px;
+    }
     .filter {
       overflow: hidden;
       .fadeInDown {
@@ -103,6 +106,16 @@
     opacity: 0;
     -webkit-transform: translate3d(0, -100%, 0);
     transform: translate3d(0, -100%, 0);
+  }
+}
+@keyframes rotate90 {
+  from {
+    transform: rotate(0);
+  }
+
+  to {
+    -webkit-transform: rotate(90deg);
+    transform: rotate(90deg);
   }
 }
 @media (max-width: $lg) {

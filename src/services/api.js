@@ -6,14 +6,15 @@ class API {
       "Content-Type": "application/json",
     };
   }
-  async postRequest(url, bodyParams) {
-    return await fetch(`${this.base_url}${url}`, {
+  postRequest(url, bodyParams) {
+    const reqParams = {
       method: "post",
       headers: this.headers,
       body: JSON.stringify(bodyParams),
-    })
+    };
+    return fetch(`${this.base_url}${url}`, reqParams)
       .then(res => res.json())
-      .catch(err => err.message);
+      .catch(err => err);
   }
   async getRequest(url, bodyParams) {
     return await fetch(`${this.base_url}${url}`, {

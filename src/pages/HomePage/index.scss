@@ -2,12 +2,8 @@
 .homePage {
   overflow: hidden;
   .loader {
-    margin-top: 60px;
-    height: 64px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
+    margin: 20px 0 auto;
+    text-align: center;
     h3 {
       margin-top: 16px;
     }

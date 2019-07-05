@@ -41,6 +41,8 @@ body {
   font-family: MinimalLight;
   .container {
     margin: 0 50px;
+    max-width: 1440px;
+    margin: 0 auto;
   }
   .ant-input,.ant-select-selection {
     &:hover, &:focus {
