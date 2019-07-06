@@ -10,12 +10,12 @@ export default class ProductFilter extends React.Component {
     this.categories = [...this.filterInfo.categories];
     this.sortOptions = [...this.filterInfo.sortOptions];
     this.state = {
-      searchText: "",
-      category: this.categories[0].id,
-      sortDirection: "ASC",
-      sortBy: 0,
-      priceRange: {from: 0},
-      orderRange: {from: 10},
+      searchText: props.searchText || "",
+      category: props.category || this.categories[0].id,
+      sortDirection: props.sortDirection || "ASC",
+      sortBy: props.sortBy || 0,
+      priceRange: {from: props.price || 0},
+      orderRange: {from: props.order || 10},
       toggleFilterVisibility: false,
     };
   }
@@ -34,7 +34,8 @@ export default class ProductFilter extends React.Component {
 
   searchBtn = (e) => {
     e.persist();
-    this.props.searchParams({...this.state});
+    const params = {...this.state, text: this.state.searchText};
+    this.props.searchParams({...params});
   }
 
   sliderFormatter = (value, type) => {

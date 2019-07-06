@@ -1,8 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import * as serviceWorker from './serviceWorker';
-import Home from './pages/HomePage';
 import './assets/styles/main.scss';
-import './assets/styles/variables.scss';
-ReactDOM.render(<Home />, document.getElementById('root'));
-serviceWorker.unregister();
+// import * as serviceWorker from './serviceWorker';
+import Routes from './routes/';
+import { BrowserRouter } from 'react-router-dom';
+ReactDOM.render(
+  <BrowserRouter>
+    <Routes />
+  </BrowserRouter>, document.getElementById('root'));
+// serviceWorker.unregister();

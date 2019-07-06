@@ -10,6 +10,7 @@ import Banner from '../../components/Banner';
 import ProductFilter from '../../components/ProductFilter';
 import ProductCard from '../../components/ProductCard';
 import ProductService from '../../services/products';
+import queryParser from '../../shared/queryParser';
 export default class HomePage extends React.Component {
   constructor(props) {
     super();
@@ -26,12 +27,17 @@ export default class HomePage extends React.Component {
     this.totalSearchItems = 0;
     this.scrollThreshold = 200;
     this.apiError = [];
+    this.limit = 25;
+    this.skip = 0;
     this.state = {
       dataLoaded: false,
       products: [],
     }
   }
   componentDidMount() {
+    // console.log(this.props);
+    // const query = this.props.location.search;
+    console.log(queryParser(this.props.location.search));
     this.getBestSellingProducts();
   }
 
@@ -51,7 +57,7 @@ export default class HomePage extends React.Component {
     this.setState({
       dataLoaded: false,
     });
-    this.ps.searchProducts({...values})
+    this.ps.searchProducts({...values,limit: this.limit, skip: this.skip})
       .then((res) => {
         this.totalSearchItems = (res && res.aggregation && res.aggregation.totalCount) || 0;
         this.filterInfo.products = [...res.items];
@@ -99,10 +105,7 @@ export default class HomePage extends React.Component {
           <Banner />
           <ProductFilter searchParams={this.searchProduct} />
             {!dataLoaded && loader}
-            <Row gutter={12}>
-              {/* <Col sm={24} md={5}>
-                <SideBarFilter />
-              </Col> */}
+            <Row gutter={12} type="flex" justify="center">
               <Col sm={24} md={24}>
                 {dataLoaded && productItems}
                 {dataLoaded && !productItems.length && alert}
