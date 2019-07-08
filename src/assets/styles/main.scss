@@ -66,4 +66,49 @@ body {
   .ant-row {
     width: 100% !important;
   }
+  .productModal {
+    width: 768px !important;
+    .productDetails {
+      h4 {
+        @include textTruncate(22px, 26px, 1);
+      }
+      h5 {
+        margin: 8px 0 0 0;
+        font-size: 18px;
+        color: $textColor;
+      }
+      p {
+        margin: 32px 0 16px 0;
+      }
+      .ant-rate {
+        .ant-rate-star-full, .ant-rate-star-half {
+          >div:hover {
+            transform: scale(1) !important;
+          }
+          .anticon-star {
+            color: $black;
+          }
+        }
+        .ant-rate-star-zero {
+          >div:hover {
+            transform: scale(1) !important;
+          }
+        }
+      }
+      .btnGroup {
+        button {
+          &:last-child {
+            margin-left: 16px;
+          }
+        }
+      }
+    }
+    .prodImage {
+      max-width: 250px;
+      overflow: hidden;
+      object-fit: cover;
+      border-radius: 4px;
+      border: 1px solid #eee;
+    }
+  }
 }

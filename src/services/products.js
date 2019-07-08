@@ -7,4 +7,7 @@ export default class Products extends API {
   searchProducts(params) {
     return this.postRequest("search", params);
   }
+  fetchProductDetails(params) {
+    return this.postRequest("products", params);
+  }
 }

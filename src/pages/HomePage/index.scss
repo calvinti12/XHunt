@@ -16,9 +16,11 @@
     margin: 25px auto;
     max-width: 50vw;
   }
+
   [class*=ant-alert-] {
     word-break: break-all;
   }
+  
   @media (min-width: $lg) {
     .ant-col-xl-4 {
       width: 20%;

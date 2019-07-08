@@ -1,6 +1,6 @@
 import React from 'react';
 import './index.scss';
-import {Row,Col,Icon,Alert} from 'antd';
+import {Row,Col,Icon,Alert,Modal,Skeleton,Carousel,Rate,Button} from 'antd';
 import {Redirect} from 'react-router';
 import InfiniteScroll from 'react-infinite-scroller';
 import FilterInfo from '../../shared/filterInfo';
@@ -27,17 +27,28 @@ export default class HomePage extends React.Component {
     this.totalSearchItems = 0;
     this.scrollThreshold = 200;
     this.apiError = [];
-    this.limit = 25;
+    this.limit = 24;
     this.skip = 0;
+    this.breakPointLimit = {
+      1600: 4,
+      1200: 3,
+      992: 3,
+      768: 2,
+      576: 1,
+    };
     this.state = {
-      dataLoaded: false,
       products: [],
+      productDetails: {},
+      dataLoaded: false,
+      isModalVisible: false,
+      hasModalDataLoaded: false,
     }
   }
+
   componentDidMount() {
     // console.log(this.props);
     // const query = this.props.location.search;
-    console.log(queryParser(this.props.location.search));
+    // console.log(queryParser(this.props.location.search));
     this.getBestSellingProducts();
   }
 
@@ -70,6 +81,17 @@ export default class HomePage extends React.Component {
       .catch((err) => {console.log(err);});
   }
 
+  getProductDetails = (data) => {
+    this.ps.fetchProductDetails({productId: data.id})
+      .then(res => {
+        this.setState({
+          hasModalDataLoaded: true,
+          productDetails: {...res, ...data}
+        });
+      })
+      .catch(err => console.log(err));
+  }
+
   registerInfiniteScroll = () => {
     document.getElementsByTagName('body')[0].addEventListener("scroll", this.infiniteScrollCallBack);
   }
@@ -82,11 +104,29 @@ export default class HomePage extends React.Component {
     }
   }
 
+  showProductModal = (e, data) => {
+    e.persist();
+    this.setState({
+      isModalVisible: true,
+    });
+    this.getProductDetails(data);
+  }
+
+  hideProductModal = (e) => {
+    this.setState({
+      hasModalDataLoaded: false,
+      isModalVisible: false
+    });
+  }
+
   render() {
-    let {products, dataLoaded} = this.state;
+    let {products, dataLoaded, isModalVisible, hasModalDataLoaded} = this.state;
+    let {productImages, title, detailUrl, ratings, orders, price} = this.state.productDetails;
+    productImages = productImages || [];
     products = products || [];
+    console.log(this.state.productDetails);
     const productItems = dataLoaded && products.map((item) =>(
-      <Col xs={24} sm={12} md={12} lg={8} xl={6} key={item.id}>
+      <Col xs={24} sm={12} lg={8} xl={6} key={item.id} onClick={(e) => this.showProductModal(e,item)}>
         <ProductCard {...item} />
       </Col>
     ));
@@ -98,6 +138,51 @@ export default class HomePage extends React.Component {
         showIcon
         type={this.apiError.length ? "error": "info"}/>
     );
+    const prodModalDescSkeleton = <Skeleton paragraph={{rows: 5}} loading={!hasModalDataLoaded} active />;
+    const prodModalImgSkeleton = <Skeleton title={false} paragraph={false} avatar={{shape:"square", size: 250}} loading={!hasModalDataLoaded} active />;
+    const prodImage = <div className="prodImage"><img className="imgResponsive" src={productImages[0]} alt={productImages[0]} /></div>;
+    const carousel = (
+      <Carousel className="productCarousel">
+        {productImages.map((item, index) => (
+          <div key={`Img-${index}`}>
+            <img src={item} alt={item} />
+          </div>
+        ))}
+      </Carousel>
+    );
+    const productModal = (
+      <Modal
+        className="productModal"
+        title={<span><Icon type="arrow-left" /> Back to Listings</span>}
+        visible={isModalVisible}
+        footer={null}
+        centered={true}
+        onCancel={this.hideProductModal}>
+          <Row type="flex" justify="center">
+            <Col sm={24} md={10}>
+              {prodModalImgSkeleton}
+              {hasModalDataLoaded && prodImage}
+            </Col>
+            <Col sm={24} md={14}>
+              {prodModalDescSkeleton}
+              {hasModalDataLoaded && (
+                <div className="productDetails">
+                  <h4>{title}</h4>
+                  <h5>{`$${price.value}`}</h5>
+                  <Rate disabled allowHalf={true} value={ratings} />
+                  <p>{title}</p>
+                  <div className="btnGroup">
+                    <Button type="primary" icon="alibaba" size="large" className="btnPrimary">
+                      Buy on AliExpress
+                    </Button>
+                    <Button type="primary" shape="circle" icon="heart" size="large" className="btnTransparent" />
+                  </div>
+                </div>
+              )}
+            </Col>
+          </Row>
+      </Modal>
+    )
     return (
       <div className="container">
         <div className="homePage">
@@ -105,20 +190,21 @@ export default class HomePage extends React.Component {
           <Banner />
           <ProductFilter searchParams={this.searchProduct} />
             {!dataLoaded && loader}
-            <Row gutter={12} type="flex" justify="center">
-              <Col sm={24} md={24}>
-                {dataLoaded && productItems}
-                {dataLoaded && !productItems.length && alert}
-              </Col>
-              {/* <InfiniteScroll
-                pageStart={0}
-                loadMore={this.searchProduct}
-                hasMore={this.totalSearchItems > products.length}
-                loader={loader}
-                useWindow={false}>
-                {dataLoaded && productItems}
-              </InfiniteScroll> */}
-            </Row>
+          <Row gutter={12} type="flex" justify="center">
+            <Col sm={24} md={24}>
+              {dataLoaded && productItems}
+              {dataLoaded && !productItems.length && alert}
+            </Col>
+            {/* <InfiniteScroll
+              pageStart={0}
+              loadMore={this.searchProduct}
+              hasMore={this.totalSearchItems > products.length}
+              loader={loader}
+              useWindow={false}>
+              {dataLoaded && productItems}
+            </InfiniteScroll> */}
+          </Row>
+          {productModal}
           <Footer />
         </div>
       </div>

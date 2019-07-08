@@ -1,3 +1,4 @@
+@import "./variables.scss"; 
 .roundBorderSelect {
   .ant-select-selection {
     border-radius: 50px !important;
@@ -15,4 +16,19 @@
 }
 .mAuto {
   margin: 0 auto;
+}
+.btnPrimary {
+  background-color: $black !important;
+  border-color: $black !important;
+  &:focus, &:hover {
+    box-shadow: 0 0 2px 4px rgba(200,200,200,.2) !important;
+  }
+}
+.btnTransparent {
+  background-color: transparent !important;
+  color: $black !important;
+  border-color: $black !important;
+  &:focus, &:hover {
+    box-shadow: 0 0 2px 4px rgba(200,200,200,.2) !important;
+  }
 }
