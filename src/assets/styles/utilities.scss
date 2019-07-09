@@ -21,14 +21,21 @@
   background-color: $black !important;
   border-color: $black !important;
   &:focus, &:hover {
-    box-shadow: 0 0 2px 4px rgba(200,200,200,.2) !important;
+    box-shadow: 0 0 2px 4px rgba(230,230,230,.2) !important;
+  }
+  &.hoverStyle {
+    &:hover {
+      background-color: transparent !important;
+      color: $black !important;
+    }
   }
 }
 .btnTransparent {
   background-color: transparent !important;
   color: $black !important;
   border-color: $black !important;
+  outline: none !important;
   &:focus, &:hover {
-    box-shadow: 0 0 2px 4px rgba(200,200,200,.2) !important;
+    box-shadow: 0 0 2px 4px rgba(230,230,230,.2) !important;
   }
 }

@@ -16,12 +16,13 @@ class API {
       .then(res => res.json())
       .catch(err => err);
   }
-  async getRequest(url, bodyParams) {
-    return await fetch(`${this.base_url}${url}`, {
+  getRequest(url, bodyParams) {
+    const reqParams = {
       method: "get",
       headers: this.headers,
       body: JSON.stringify(bodyParams),
-    })
+    };
+    return fetch(`${this.base_url}${url}`, reqParams)
       .then(res => res.json())
       .catch(err => err.message);
   }

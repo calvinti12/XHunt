@@ -20,7 +20,7 @@ export default class HomePage extends React.Component {
       category: this.filterInfo.categories[0].id,
       sortDirection: "ASC",
       ratingsRange: {from: 4},
-      orderRange: {from: 50},
+      orderRange: {from: 0},
       skip: 0,
       limit: 25
     };
@@ -124,7 +124,6 @@ export default class HomePage extends React.Component {
     let {productImages, title, detailUrl, ratings, orders, price} = this.state.productDetails;
     productImages = productImages || [];
     products = products || [];
-    console.log(this.state.productDetails);
     const productItems = dataLoaded && products.map((item) =>(
       <Col xs={24} sm={12} lg={8} xl={6} key={item.id} onClick={(e) => this.showProductModal(e,item)}>
         <ProductCard {...item} />
@@ -172,9 +171,7 @@ export default class HomePage extends React.Component {
                   <Rate disabled allowHalf={true} value={ratings} />
                   <p>{title}</p>
                   <div className="btnGroup">
-                    <Button type="primary" icon="alibaba" size="large" className="btnPrimary">
-                      Buy on AliExpress
-                    </Button>
+                    <a target="_blank" rel="noopener noreferrer" className="ant-btn btnPrimary ant-btn-primary ant-btn-lg" href={detailUrl}><Icon type="alibaba" /> Buy on AliExpress</a>
                     <Button type="primary" shape="circle" icon="heart" size="large" className="btnTransparent" />
                   </div>
                 </div>
@@ -184,10 +181,10 @@ export default class HomePage extends React.Component {
       </Modal>
     )
     return (
-      <div className="container">
-        <div className="homePage">
-          <Menu />
-          <Banner />
+      <div className="homePage">
+        <Menu isLoggedIn={true}/>
+        <Banner />
+        <div className="container">
           <ProductFilter searchParams={this.searchProduct} />
             {!dataLoaded && loader}
           <Row gutter={12} type="flex" justify="center">

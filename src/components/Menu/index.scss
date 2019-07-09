@@ -1,9 +1,18 @@
 @import '../../assets/styles/variables.scss';
 .header {
+  padding: 0 40px;
+  background: $blue5;
+  .ant-avatar {
+    margin-left: 16px;
+    background: $black;
+    i {
+      color: $white;
+    }
+  }
   >div {
     padding: 15px 0;
     i {
-      color: $blue5;
+      color: $black;
     }
     h1 {
       margin: 0 0;
