@@ -14,7 +14,6 @@ class ProductCard extends React.Component {
       <div className="productCard">
         <div className="productImg">
           <LazyLoadImage
-            placeholder={<span></span>}
             alt={title}
             src={imageUrl}/>
         </div>
