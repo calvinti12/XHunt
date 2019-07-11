@@ -9,6 +9,7 @@ export default class ProductFilter extends React.Component {
     this.filterInfo = new FilterInfo();
     this.categories = [...this.filterInfo.categories];
     this.sortOptions = [...this.filterInfo.sortOptions];
+    this.inputRef = null;
     this.state = {
       searchText: props.searchText || "",
       category: props.category || this.categories[0].id,
@@ -18,6 +19,10 @@ export default class ProductFilter extends React.Component {
       orderRange: {from: props.order || 10},
       toggleFilterVisibility: false,
     };
+  }
+  
+  componentDidMount() {
+    this.inputRef.focus();
   }
 
   handleInputChange = (e) => {
@@ -67,7 +72,7 @@ export default class ProductFilter extends React.Component {
           <Row>
             <Col xs={16} className="inputFilter">
               <Icon type="search" onClick={this.searchBtn} />
-              <input placeholder="Search any product..." onChange={this.handleInputChange} onKeyUp={this.searchOnEnter}/>
+              <input placeholder="Search any product..." onChange={this.handleInputChange} onKeyUp={this.searchOnEnter} ref={el => this.inputRef = el}/>
             </Col>
             <Col xs={8} className="sortSelect">
               <label>Categories</label>

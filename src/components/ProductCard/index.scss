@@ -1,28 +1,28 @@
-@import '../../assets/styles/mixins.scss';
-.ant-card {
-  margin: 16px 0 !important;
-  .ant-card-cover {
-    background: #fff;
-    border-bottom: 1px solid #eee;
-    height: 275px;
+@import '../../assets/styles/mixins.scss' , '../../assets/styles/variables.scss';
+.productCard {
+  max-width: 350px;
+  margin: 0 auto 24px auto;
+  cursor: pointer;
+  .productImg {
+    height: 300px;
     overflow: hidden;
-    cursor: pointer;
+    border: 1px solid #eee;
+    background-color: #fcfcfc;
     img {
       width: 100%;
       height: auto;
+      object-fit: cover;
     }
   }
-  .ant-card-body {
-    padding: 12px !important;
-    // height: 110px;
-    .ant-card-meta-description {
-      @include textTruncate(13px, 18px, 3);
+  .productDesc {
+    margin: 8px;
+    .price {
+      font-size: 18px;
+      color: $black;
     }
-  }
-  .ant-card-actions {
-    >li {
-      margin: 6px 0;
-      cursor: pointer;
+    .description {
+      @include textTruncate(14px, 18px, 2);
+      margin-top: 8px;
     }
   }
 }

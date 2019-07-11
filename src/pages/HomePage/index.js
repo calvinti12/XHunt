@@ -1,6 +1,5 @@
 import React from 'react';
 import './index.scss';
-import {Row,Col,Icon,Alert,Modal,Skeleton,Carousel,Rate,Button} from 'antd';
 import {Redirect} from 'react-router';
 import InfiniteScroll from 'react-infinite-scroller';
 import FilterInfo from '../../shared/filterInfo';
@@ -11,6 +10,7 @@ import ProductFilter from '../../components/ProductFilter';
 import ProductCard from '../../components/ProductCard';
 import ProductService from '../../services/products';
 import queryParser from '../../shared/queryParser';
+import {Row,Col,Icon,Alert,Modal,Skeleton,Carousel,Rate,Button} from 'antd';
 export default class HomePage extends React.Component {
   constructor(props) {
     super();

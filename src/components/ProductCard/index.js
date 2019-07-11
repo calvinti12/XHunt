@@ -1,29 +1,39 @@
 import React from 'react';
 import './index.scss';
-import { Skeleton, Switch, Card, Icon, Avatar } from 'antd';
-import {Image,Transformation} from 'cloudinary-react';
-const { Meta } = Card;
+import {Icon, Row, Col} from 'antd';
+// import {Image,Transformation} from 'cloudinary-react';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 class ProductCard extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {...this.props};
   }
   render() {
-    const { imageUrl, title, price } = this.props;
+    const { imageUrl, title, price } = this.state;
     return (
-      <Card
-        cover={
-          // <Image cloudName="dyce0ba6z" publicId={imageUrl}>
-          //   <Transformation alt={title} width="400" height="300" crop="fill"/>
-          // </Image>
-          <img src={imageUrl} alt={title}/>
-        }
-        actions={[<Icon type="heart" />, <Icon type="shopping-cart" />]}
-      >
-        <Meta
-          title={"$" + price.value}
-          description={title}
-        />
-      </Card>
+      <div className="productCard">
+        <div className="productImg">
+          <LazyLoadImage
+            placeholder={<span></span>}
+            alt={title}
+            src={imageUrl}/>
+        </div>
+        <div className="productDesc">
+          <Row type="flex" align="middle">
+            <Col span={16}>
+              <span className="price">{'$' + price.value}</span>
+            </Col>
+            <Col span={8}>
+              <Icon type="heart" className="floatRight" />
+            </Col>
+          </Row>
+          <Row>
+            <Col span={24}>
+              <p className="description">{title}</p>
+            </Col>
+          </Row>
+        </div>
+      </div>
     )
   }
 }
