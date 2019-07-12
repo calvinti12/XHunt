@@ -22,7 +22,7 @@ export default class HomePage extends React.Component {
       ratingsRange: {from: 4},
       orderRange: {from: 0},
       skip: 0,
-      limit: 25
+      limit: 24
     };
     this.totalSearchItems = 0;
     this.scrollThreshold = 200;
@@ -30,11 +30,11 @@ export default class HomePage extends React.Component {
     this.limit = 24;
     this.skip = 0;
     this.breakPointLimit = {
-      1600: 4,
-      1200: 3,
-      992: 3,
-      768: 2,
-      576: 1,
+      1600: 20, // items displayed per row * rows to display.
+      1200: 15,
+      992: 15,
+      768: 10,
+      576: 5,
     };
     this.state = {
       products: [],

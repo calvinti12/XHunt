@@ -89,24 +89,24 @@ export default class ProductFilter extends React.Component {
             </Col>
           </Row>
           <div className="filter">
-            <Row gutter={12} className={toggleFilterVisibility ? "fadeInDown" : "fadeOutUp"}>
-              <Col md={12} lg={4}>
+            <Row gutter={12} type="flex" className={toggleFilterVisibility ? "fadeInDown" : "fadeOutUp"}>
+              <Col xs={24} sm={12} lg={4}>
                 <p>Sort By:</p>
                 <Select className="roundBorderSelect" defaultValue={defaultSortValue} onChange={(e) => this.setState({sortBy: e})}>
                   {sortOptions}
                 </Select>
               </Col>
-              <Col md={12} lg={6}>
+              <Col xs={24} sm={12} lg={6}>
                 <p>Sort Direction:</p>
                 <Radio.Group onChange={(e) => this.setState({sortDirection: e.target.value}) } value={this.state.sortDirection}>
                   {sortDirection}
                 </Radio.Group>
               </Col>
-              <Col md={12} lg={7}>
+              <Col xs={24} sm={12} lg={7}>
                 <p>Price Range:</p>
                 <Slider defaultValue={0} min={0} step={10} tipFormatter={e => this.sliderFormatter(e, "price")} onChange={e => this.onSliderChange(e,'priceRange')} />
               </Col>
-              <Col md={12} lg={7}>
+              <Col xs={24} sm={12} lg={7}>
                 <p># of Orders:</p>
                 <Slider defaultValue={10} min={10} step={10} tipFormatter={e=> this.sliderFormatter(e, "order")} onChange={e => this.onSliderChange(e,'orderRange')} />
               </Col>
