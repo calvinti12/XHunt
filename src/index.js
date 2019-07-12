@@ -7,5 +7,7 @@ import { BrowserRouter } from 'react-router-dom';
 ReactDOM.render(
   <BrowserRouter>
     <Routes />
-  </BrowserRouter>, document.getElementById('root'));
+  </BrowserRouter>, document.getElementById('root'), () => {
+    document.querySelector('.indexLoader').classList.add('dNone');
+  });
 serviceWorker.unregister();

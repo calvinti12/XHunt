@@ -6,10 +6,31 @@
     <meta name="theme-color" content="#000000" />
     <!-- <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico" />
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" /> -->
-    <title>DropShipping | One of the best places to buy digital goods on the internet</title>
+    <title>XHunt | List of community driven curated products from AliExpress.</title>
   </head>
+  <style>
+  .indexLoader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+    width: 100vw;
+    background-color: #fcfcfc;
+  }
+  .indexLoader img {
+    width: 100px;
+  }
+  .indexLoader p {
+    font-size: 18px;
+  }
+  </style>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
+    <div class="indexLoader">
+      <img src="./loader.svg" />
+      <p>Fetching all the cool products for you...</p>
+    </div>
   </body>
 </html>

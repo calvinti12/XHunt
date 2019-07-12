@@ -3,6 +3,7 @@ import './index.scss';
 import {Icon, Row, Col} from 'antd';
 // import {Image,Transformation} from 'cloudinary-react';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
+import LoaderImg from '../../assets/images/loader.svg';
 class ProductCard extends React.Component {
   constructor(props) {
     super(props);
@@ -26,6 +27,7 @@ class ProductCard extends React.Component {
         <div className="productImg">
           <LazyLoadImage
             delayTime={0}
+            placeholderSrc={LazyLoadImage}
             afterLoad={this.afterImgLoaded}
             alt={title}
             src={imageUrl}/>

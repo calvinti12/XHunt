@@ -188,8 +188,8 @@ export default class HomePage extends React.Component {
         <div className="container">
           <ProductFilter searchParams={this.searchProduct} />
             {!dataLoaded && loader}
-          <Row gutter={12} type="flex" justify="center">
-            <Col sm={24} md={24}>
+          <Row gutter={24} type="flex" justify="center">
+            <Col sm={32} md={24}>
               {dataLoaded && productItems}
               {dataLoaded && !productItems.length && alert}
             </Col>
