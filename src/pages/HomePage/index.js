@@ -127,7 +127,7 @@ export default class HomePage extends React.Component {
     products = products || [];
     const productItems = dataLoaded && products.map((item) =>(
       <Col xs={24} sm={12} lg={8} xl={6} key={item.id} onClick={(e) => this.showProductModal(e,item)}>
-        <ProductCard {...item} />
+        <ProductCard {...item}/>
       </Col>
     ));
     const loader = <div className="loader"><Icon type="loading" /><h3>Fetching Products...</h3></div>;

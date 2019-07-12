@@ -85,11 +85,11 @@ export default class ProductFilter extends React.Component {
         <div className="extraFilters">
           <Row>
             <Col span={24}>
-              <Button type="link" size="small" className="floatRight" onClick={this.toggleFilterVisibilityBtn}> Filters <Icon type="caret-right" rotate={toggleFilterVisibility ? 90 : 0} /></Button>
+              <Button type="link" size="small" className="floatRight" onClick={this.toggleFilterVisibilityBtn}> Filters <Icon type="caret-right" /></Button>
             </Col>
           </Row>
           <div className="filter">
-            <Row gutter={12} type="flex" className={toggleFilterVisibility ? "fadeInDown" : "fadeOutUp"}>
+            <Row gutter={12} type="flex" className={toggleFilterVisibility ? 'fadeInDown' : 'fadeOutUp'}>
               <Col xs={24} sm={12} lg={4}>
                 <p>Sort By:</p>
                 <Select className="roundBorderSelect" defaultValue={defaultSortValue} onChange={(e) => this.setState({sortBy: e})}>
