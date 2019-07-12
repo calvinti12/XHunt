@@ -40,9 +40,9 @@ body {
   color: $textColor;
   font-family: MinimalLight;
   .container {
-    margin: 0 50px;
     max-width: 1440px;
     margin: 0 auto;
+    padding: 0 50px;
   }
   .ant-input,.ant-select-selection {
     &:hover, &:focus {

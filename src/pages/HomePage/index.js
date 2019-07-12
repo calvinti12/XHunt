@@ -50,6 +50,7 @@ export default class HomePage extends React.Component {
     // const query = this.props.location.search;
     // console.log(queryParser(this.props.location.search));
     this.getBestSellingProducts();
+    this.registerInfiniteScroll();
   }
 
   getBestSellingProducts = () => {
@@ -98,7 +99,7 @@ export default class HomePage extends React.Component {
 
   infiniteScrollCallBack = () => {
     const heightLimit = document.body.scrollTop + window.innerHeight + this.scrollThreshold >= document.body.scrollHeight;
-    console.log(heightLimit);
+    console.log( document.body.scrollTop + window.innerHeight + this.scrollThreshold, document.body.scrollHeight);
     if (heightLimit && !this.state.dataLoaded) {
       this.searchProduct(this.state.searchParams);
     }

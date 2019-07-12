@@ -6,14 +6,27 @@ import { LazyLoadImage } from 'react-lazy-load-image-component';
 class ProductCard extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {...this.props};
+    this.state = {
+      ...this.props,
+      imgLoaded: false,
+    };
+    this.imgRef = null;
   }
+
+  afterImgLoaded = (e) => {
+    this.setState({
+      imgLoaded: true,
+    });
+  }
+
   render() {
-    const { imageUrl, title, price } = this.state;
+    const { imageUrl, title, price, imgLoaded } = this.state;
     return (
       <div className="productCard">
         <div className="productImg">
           <LazyLoadImage
+            delayTime={0}
+            afterLoad={this.afterImgLoaded}
             alt={title}
             src={imageUrl}/>
         </div>
