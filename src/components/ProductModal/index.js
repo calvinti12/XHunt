@@ -15,7 +15,7 @@ export default class ProductModal extends React.Component {
     this.setState({...props});
   }
 
-  hideProductModal = (e) => {
+  hideProductModal = () => {
     this.props.hideProductModal();
   }
 
@@ -28,7 +28,7 @@ export default class ProductModal extends React.Component {
     return (
       <Modal
         className="productModal"
-        title={<span><Icon type="arrow-left" /> Back to Listings</span>}
+        title={<span className="link" onClick={this.hideProductModal}><Icon type="arrow-left" /> Back to Listings</span>}
         visible={isModalVisible}
         footer={null}
         centered={true}

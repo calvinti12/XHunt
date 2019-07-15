@@ -54,6 +54,9 @@ body {
       border-color: #aaa !important;
     }
   }
+  [class*=ant-alert-] {
+    word-break: break-all;
+  }
   button {
     &:active,&:focus {
       outline: none !important;
@@ -113,5 +116,10 @@ body {
       border-radius: 4px;
       border: 1px solid #eee;
     }
+  }
+  .link {
+    text-decoration: none;
+    color: $black;
+    cursor: pointer;
   }
 }

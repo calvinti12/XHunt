@@ -19,7 +19,7 @@ export default class HomePage extends React.Component {
     this.filterInfo = new FilterInfo();
     this.bestSellingProductsParams = {
       category: this.filterInfo.categories[0].id,
-      sortDirection: "ASC",
+      sortDirection: "DESC",
       ratingsRange: {from: 4},
       orderRange: {from: 0},
       skip: 0,
@@ -40,6 +40,10 @@ export default class HomePage extends React.Component {
     this.state = {
       products: [],
       productDetails: {},
+      searchProps: {
+        searchText: "",
+        category: 0
+      },
       dataLoaded: false,
       isModalVisible: false,
       hasModalDataLoaded: false,
@@ -47,8 +51,19 @@ export default class HomePage extends React.Component {
   }
 
   componentDidMount() {
-    // console.log(this.props);
-    // const query = this.props.location.search;
+    const {pathname,search} = this.props.location;
+    const q = pathname.split("/");
+    if(pathname.length) {
+      this.setState({
+        searchProps: {
+          searchText: q[1],
+          category: q[2]
+        }
+      });
+    }
+    if (search.length) {
+
+    }
     // console.log(queryParser(this.props.location.search));
     this.getBestSellingProducts();
     this.registerInfiniteScroll();
@@ -69,6 +84,7 @@ export default class HomePage extends React.Component {
   searchProduct = (values) => {
     this.setState({
       dataLoaded: false,
+      searchProps: {...values}
     });
     this.ps.searchProducts({...values,limit: this.limit, skip: this.skip})
       .then((res) => {
@@ -95,12 +111,12 @@ export default class HomePage extends React.Component {
   }
 
   registerInfiniteScroll = () => {
-    document.getElementsByTagName('body')[0].addEventListener("scroll", this.infiniteScrollCallBack);
+    window.addEventListener("scroll", this.infiniteScrollCallBack);
   }
 
   infiniteScrollCallBack = () => {
-    const heightLimit = document.body.scrollTop + window.innerHeight + this.scrollThreshold >= document.body.scrollHeight;
-    console.log( document.body.scrollTop + window.innerHeight + this.scrollThreshold, document.body.scrollHeight);
+    const heightLimit = window.scrollY + window.innerHeight + this.scrollThreshold >= document.body.scrollHeight;
+    // console.log(this.state.searchParams);
     if (heightLimit && !this.state.dataLoaded) {
       this.searchProduct(this.state.searchParams);
     }
@@ -126,7 +142,7 @@ export default class HomePage extends React.Component {
   }
 
   render() {
-    let {products,dataLoaded,isModalVisible,hasModalDataLoaded,productDetails} = this.state;
+    let {products,dataLoaded,isModalVisible,hasModalDataLoaded,productDetails,searchProps} = this.state;
     let error = [...this.apiError];
     products = products || [];
     const productItems = dataLoaded && products.map((item) =>(
@@ -149,7 +165,7 @@ export default class HomePage extends React.Component {
         <Menu isLoggedIn={true}/>
         <Banner />
         <div className="container">
-          <ProductFilter searchParams={this.searchProduct} />
+          <ProductFilter {...searchProps} outputSearchParams={this.searchProduct}/>
             {!dataLoaded && loader}
           <Row gutter={24} type="flex" justify="center">
             <Col sm={24} md={24}>
@@ -158,11 +174,14 @@ export default class HomePage extends React.Component {
             </Col>
             {/* <InfiniteScroll
               pageStart={0}
-              loadMore={this.searchProduct}
+              loadMore={this.searchProduct(searchParams)}
               hasMore={this.totalSearchItems > products.length}
               loader={loader}
               useWindow={false}>
-              {dataLoaded && productItems}
+              <Col sm={24} md={24}>
+                {dataLoaded && productItems}
+                {dataLoaded && !productItems.length && alert}
+              </Col>
             </InfiniteScroll> */}
           </Row>
           {productModal}

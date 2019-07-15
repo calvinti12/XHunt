@@ -13,12 +13,8 @@
     }
   }
   .ant-alert {
-    margin: 25px auto;
-    max-width: 50vw;
-  }
-
-  [class*=ant-alert-] {
-    word-break: break-all;
+    margin: 50px auto;
+    max-width: 500px;
   }
   
   @media (min-width: $lg) {
