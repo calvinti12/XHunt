@@ -6,11 +6,12 @@ import FilterInfo from '../../shared/filterInfo';
 import Menu from '../../components/Menu';
 import Footer from '../../components/Footer';
 import Banner from '../../components/Banner';
+import ProductModal from '../../components/ProductModal';
 import ProductFilter from '../../components/ProductFilter';
 import ProductCard from '../../components/ProductCard';
 import ProductService from '../../services/products';
 import queryParser from '../../shared/queryParser';
-import {Row,Col,Icon,Alert,Modal,Skeleton,Carousel,Rate,Button} from 'antd';
+import {Row,Col,Icon,Alert} from 'antd';
 export default class HomePage extends React.Component {
   constructor(props) {
     super();
@@ -113,17 +114,20 @@ export default class HomePage extends React.Component {
     this.getProductDetails(data);
   }
 
-  hideProductModal = (e) => {
+  hideProductModal = () => {
     this.setState({
-      hasModalDataLoaded: false,
-      isModalVisible: false
-    });
+      isModalVisible: false,
+    })
+    setTimeout(() => {
+      this.setState({
+        hasModalDataLoaded: false,
+      });
+    },500);
   }
 
   render() {
-    let {products, dataLoaded, isModalVisible, hasModalDataLoaded} = this.state;
-    let {productImages, title, detailUrl, ratings, orders, price} = this.state.productDetails;
-    productImages = productImages || [];
+    let {products,dataLoaded,isModalVisible,hasModalDataLoaded,productDetails} = this.state;
+    let error = [...this.apiError];
     products = products || [];
     const productItems = dataLoaded && products.map((item) =>(
       <Col xs={24} sm={12} lg={8} xl={6} key={item.id} onClick={(e) => this.showProductModal(e,item)}>
@@ -133,54 +137,13 @@ export default class HomePage extends React.Component {
     const loader = <div className="loader"><Icon type="loading" /><h3>Fetching Products...</h3></div>;
     const alert = (
       <Alert
-        message={this.apiError.length ? this.apiError[0].exception : "No Results Found"}
-        description={this.apiError.length ? this.apiError[0].message : "Try changing your search parameters!"}
+        message={error.length ? error[0].exception : "No Results Found"}
+        description={error.length ? error[0].message : "Try changing your search parameters!"}
         showIcon
-        type={this.apiError.length ? "error": "info"}/>
+        type={error.length ? "error": "info"}/>
     );
-    const prodModalDescSkeleton = <Skeleton paragraph={{rows: 5}} loading={!hasModalDataLoaded} active />;
-    const prodModalImgSkeleton = <Skeleton title={false} paragraph={false} avatar={{shape:"square", size: 250}} loading={!hasModalDataLoaded} active />;
-    const prodImage = <div className="prodImage"><img className="imgResponsive" src={productImages[0]} alt={productImages[0]} /></div>;
-    const carousel = (
-      <Carousel className="productCarousel">
-        {productImages.map((item, index) => (
-          <div key={`Img-${index}`}>
-            <img src={item} alt={item} />
-          </div>
-        ))}
-      </Carousel>
-    );
-    const productModal = (
-      <Modal
-        className="productModal"
-        title={<span><Icon type="arrow-left" /> Back to Listings</span>}
-        visible={isModalVisible}
-        footer={null}
-        centered={true}
-        onCancel={this.hideProductModal}>
-          <Row type="flex" justify="center">
-            <Col sm={24} md={10}>
-              {prodModalImgSkeleton}
-              {hasModalDataLoaded && prodImage}
-            </Col>
-            <Col sm={24} md={14}>
-              {prodModalDescSkeleton}
-              {hasModalDataLoaded && (
-                <div className="productDetails">
-                  <h4>{title}</h4>
-                  <h5>{`$${price.value}`}</h5>
-                  <Rate disabled allowHalf={true} value={ratings} />
-                  <p>{title}</p>
-                  <div className="btnGroup">
-                    <a target="_blank" rel="noopener noreferrer" className="ant-btn btnPrimary ant-btn-primary ant-btn-lg" href={detailUrl}><Icon type="alibaba" /> Buy on AliExpress</a>
-                    <Button type="primary" shape="circle" icon="heart" size="large" className="btnTransparent" />
-                  </div>
-                </div>
-              )}
-            </Col>
-          </Row>
-      </Modal>
-    )
+    const modalProps = {...productDetails, isModalVisible: isModalVisible, hasModalDataLoaded: hasModalDataLoaded};
+    const productModal = <ProductModal {...modalProps} hideProductModal={this.hideProductModal}/>
     return (
       <div className="homePage">
         <Menu isLoggedIn={true}/>
@@ -189,7 +152,7 @@ export default class HomePage extends React.Component {
           <ProductFilter searchParams={this.searchProduct} />
             {!dataLoaded && loader}
           <Row gutter={24} type="flex" justify="center">
-            <Col sm={32} md={24}>
+            <Col sm={24} md={24}>
               {dataLoaded && productItems}
               {dataLoaded && !productItems.length && alert}
             </Col>
