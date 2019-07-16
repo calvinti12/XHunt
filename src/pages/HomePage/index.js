@@ -20,7 +20,7 @@ export default class HomePage extends React.Component {
     this.bestSellingProductsParams = {
       category: this.filterInfo.categories[0].id,
       sortDirection: "DESC",
-      ratingsRange: {from: 4},
+      ratingsRange: {from: 0},
       orderRange: {from: 0},
       skip: 0,
       limit: 24

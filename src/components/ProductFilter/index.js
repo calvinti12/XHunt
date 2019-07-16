@@ -21,11 +21,8 @@ export default class ProductFilter extends React.Component {
     };
   }
 
-  componentWillReceiveProps(props) {
-    // console.log(props);
-    this.setState({
-      ...props
-    });
+  static getDerivedStateFromProps(newProps) {
+    return {...newProps};
   }
 
   componentDidMount() {
@@ -75,7 +72,6 @@ export default class ProductFilter extends React.Component {
 
     let [defaultSortValue,defaultSortCategory] = [this.sortOptions[0].label,this.categories[0].label];
     const cIndex = this.categories.findIndex(item => item.id === parseInt(category));
-    console.log(cIndex);
     defaultSortCategory = cIndex > -1 ? this.categories[cIndex].label : this.categories[0].label;
     return (
       <div className="productFilter">

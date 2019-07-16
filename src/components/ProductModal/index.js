@@ -1,7 +1,7 @@
 import React from 'react';
 import './index.scss';
 import {Modal,Icon,Row,Col,Rate,Button,Skeleton} from 'antd';
-
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 export default class ProductModal extends React.Component {
   constructor(props) {
     super(props);
@@ -11,20 +11,30 @@ export default class ProductModal extends React.Component {
     };
   }
 
-  componentWillReceiveProps(props) {
-    this.setState({...props});
+  static getDerivedStateFromProps(newProps) {
+    return {...newProps};
   }
 
   hideProductModal = () => {
     this.props.hideProductModal();
   }
 
+  roundOffRating = (val) => {
+    const a = Math.round(Number(val) * 2) / 2;
+    const b = Math.round(val * 2) / 2;
+    return (typeof val === "string" ?  a : b) || 0;
+  }
+
   render() {
-    let {hasModalDataLoaded,isModalVisible,title,price,ratings,detailUrl,productImages} = this.state;
+    let {hasModalDataLoaded,isModalVisible,title,price,ratings,reviews,detailUrl,productImages} = this.state;
+    console.log(this.state);
+    ratings = this.roundOffRating(ratings) || this.roundOffRating(reviews && reviews.ratings);
+    console.log(ratings);
     productImages = productImages || [];
     const prodModalDescSkeleton = <Skeleton paragraph={{rows: 5}} loading={!hasModalDataLoaded} active />;
     const prodModalImgSkeleton = <Skeleton title={false} paragraph={false} avatar={{shape:"square", size: 250}} loading={!hasModalDataLoaded} active />;
-    const prodImage = <div className="prodImage"><img className="imgResponsive" src={productImages[0]} alt={productImages[0]} /></div>;
+    const prodImage = <div className="prodImage"><LazyLoadImage visibleByDefault={true} afterLoad={this.afterImgLoaded} alt={title}
+      src={productImages[0]}/></div>;
     return (
       <Modal
         className="productModal"

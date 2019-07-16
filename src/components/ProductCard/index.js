@@ -1,7 +1,6 @@
 import React from 'react';
 import './index.scss';
 import {Icon, Row, Col} from 'antd';
-// import {Image,Transformation} from 'cloudinary-react';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 class ProductCard extends React.Component {
   constructor(props) {
