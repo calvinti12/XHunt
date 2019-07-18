@@ -2,7 +2,7 @@ import React from 'react';
 import './index.scss';
 import {Icon, Row, Col} from 'antd';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
-class ProductCard extends React.Component {
+export default class ProductCard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -48,4 +48,3 @@ class ProductCard extends React.Component {
     )
   }
 }
-export default ProductCard;

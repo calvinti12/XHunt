@@ -2,7 +2,7 @@
   display: block;
   display: -webkit-box;
   max-width: 100%;
-  max-height: $line-height * $lines-to-show;
+  height: $line-height * $lines-to-show;
   margin: 0 auto;
   font-size: $font-size;
   line-height: $line-height;

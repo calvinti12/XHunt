@@ -9,10 +9,10 @@
     max-width: 75vw;
   }
   @media (max-width: $sm) {
-    max-width: 85vw;
+    max-width: 90vw;
   }
   @media (max-width: $xs) {
-    max-width: 95vw;
+    margin-bottom: 50px;
   }
   .searchBar {
     height: 75px;
@@ -27,14 +27,35 @@
     &:hover, &:focus {
       box-shadow: 0 7px 16px 3px rgba(200,200,200, .3);
     }
+    @media(max-width: $xs) {
+      height: unset;
+      padding-bottom: 12px;
+    }
     .inputFilter {
       border-right: 1px solid #eee;
-      i {
+      @media(max-width: $xs) {
+        border-right: none;
+      }
+      .prefixIcon {
         position: absolute;
         top: 25px;
         left: 20px;
         font-size: 22px;
         cursor: pointer;
+        @media(max-width: $xs) {
+          font-size: 20px;
+        }
+      }
+      .suffixIcon {
+        position: absolute;
+        top: 25px;
+        right: 15px;
+        font-size: 20px;
+        cursor: pointer;
+        display: none;
+        @media(max-width: $xs) {
+          display: block;
+        }
       }
       input {
         border-color: transparent;
@@ -43,12 +64,20 @@
         outline: none;
         border-radius: 50px;
         font-size: 16px;
-        padding: 0 15px 0 50px;
+        padding: 0 15px 0 45px;
+        @media(max-width: $xs) {
+          padding: 0 50px;
+        }
       }
     }
-    .sortSelect {
+    .categories {
       margin-top: 15px;
       padding: 0 15px;
+      @media(max-width: $xs) {
+        margin-top: 0;
+        padding: 10px 15px 0 20px;
+        border-top: 1px solid #eee;
+      }
       label {
         font-size: 13px;
         line-height: 0 !important;
@@ -78,6 +107,9 @@
     padding: 0 15px;
     @media (max-width: $sm) {
       padding: 0 0;
+    }
+    @media (max-width: $xs) {
+      display: none;
     }
     .ant-btn-link {
       font-size: 11px;

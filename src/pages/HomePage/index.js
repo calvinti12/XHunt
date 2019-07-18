@@ -10,39 +10,32 @@ import ProductModal from '../../components/ProductModal';
 import ProductFilter from '../../components/ProductFilter';
 import ProductCard from '../../components/ProductCard';
 import ProductService from '../../services/products';
-import queryParser from '../../shared/queryParser';
 import {Row,Col,Icon,Alert} from 'antd';
 export default class HomePage extends React.Component {
   constructor(props) {
     super();
     this.ps = new ProductService();
     this.filterInfo = new FilterInfo();
-    this.bestSellingProductsParams = {
-      category: this.filterInfo.categories[0].id,
-      sortDirection: "DESC",
-      ratingsRange: {from: 0},
-      orderRange: {from: 0},
-      skip: 0,
-      limit: 24
-    };
     this.totalSearchItems = 0;
     this.scrollThreshold = 200;
     this.apiError = [];
     this.limit = 24;
     this.skip = 0;
-    this.breakPointLimit = {
-      1600: 20, // items displayed per row * rows to display.
-      1200: 15,
-      992: 15,
-      768: 10,
-      576: 5,
+    this.bestSellingProductsParams = {
+      category: this.filterInfo.categories[0].id,
+      sortBy: this.filterInfo.sortOptions[0].id,
+      sortDirection: "DESC",
+      ratingsRange: {from: 0},
+      orderRange: {from: 10},
+      skip: 0,
+      limit: 24
     };
     this.state = {
       products: [],
       productDetails: {},
       searchProps: {
         searchText: "",
-        category: 0
+        category: this.filterInfo.categories[0].id
       },
       dataLoaded: false,
       isModalVisible: false,
@@ -51,22 +44,20 @@ export default class HomePage extends React.Component {
   }
 
   componentDidMount() {
-    const {pathname,search} = this.props.location;
-    const q = pathname.split("/");
-    if(pathname.length) {
-      this.setState({
-        searchProps: {
-          searchText: q[1],
-          category: q[2]
-        }
-      });
-    }
-    if (search.length) {
-
-    }
-    // console.log(queryParser(this.props.location.search));
     this.getBestSellingProducts();
-    this.registerInfiniteScroll();
+    // this.registerInfiniteScroll();
+  }
+
+  getQueryParameters = () => {
+    const {pathname,search} = this.props;
+    if (!pathname || pathname === "/") return;
+    const q = pathname.split("/");
+    this.setState({
+      searchProps: {
+        searchText: q[1],
+        category: Number(q[2]),
+      }
+    });
   }
 
   getBestSellingProducts = () => {
@@ -86,6 +77,8 @@ export default class HomePage extends React.Component {
       dataLoaded: false,
       searchProps: {...values}
     });
+    // console.log("Received in API call");
+    // console.log(values);
     this.ps.searchProducts({...values,limit: this.limit, skip: this.skip})
       .then((res) => {
         this.totalSearchItems = (res && res.aggregation && res.aggregation.totalCount) || 0;
@@ -143,6 +136,7 @@ export default class HomePage extends React.Component {
 
   render() {
     let {products,dataLoaded,isModalVisible,hasModalDataLoaded,productDetails,searchProps} = this.state;
+    const {location} = this.props;
     let error = [...this.apiError];
     products = products || [];
     const productItems = dataLoaded && products.map((item) =>(

@@ -1,6 +1,7 @@
 import React from 'react';
 import './index.scss';
 import FilterInfo from '../../shared/filterInfo';
+import queryParser from '../../shared/queryParser';
 import {Button,Select,Row,Col,Icon, Slider, Radio} from 'antd';
 const {Option} = Select;
 export default class ProductFilter extends React.Component {
@@ -21,18 +22,29 @@ export default class ProductFilter extends React.Component {
     };
   }
 
-  static getDerivedStateFromProps(newProps) {
-    return {...newProps};
-  }
+  // static getDerivedStateFromProps(newProps, prevState) {
+  //   // Impt to return every state variable explicitly, which was not received in the props.
+  //   const newState = {...newProps, toggleFilterVisibility: prevState.toggleFilterVisibility};
+  //   console.log("New State: ");
+  //   console.log(newState);
+  //   return newState;
+  // }
 
   componentDidMount() {
-    this.inputRef.focus();
+    console.log("Component Mounted");
+    console.log(this.props);
   }
-
+ 
   handleInputChange = (e) => {
     e.persist();
     this.setState({
       searchText: e.target.value,
+    });
+  }
+
+  handleSelectChange = (e) => {
+    this.setState({
+      category: e
     });
   }
 
@@ -44,7 +56,7 @@ export default class ProductFilter extends React.Component {
   searchBtn = (e) => {
     e.persist();
     const params = {...this.state, text: this.state.searchText};
-    this.props.outputSearchParams({...params});
+    this.props.outputSearchParams(params);
   }
 
   sliderFormatter = (value, type) => {
@@ -68,22 +80,20 @@ export default class ProductFilter extends React.Component {
     const {searchText,category,toggleFilterVisibility} = this.state;
     const sortOptions = this.sortOptions.map(item => <Option value={item.id} key={item.id}>{item.label}</Option>);
     const categoriesOptions = this.categories.map((item, index) => <Option value={item.id} key={item.id}>{item.label}</Option>);
-    const sortDirection = ["ASC", "DESC"].map((item, index) => <Radio value={item} key={`opt-${index}`}>{item}</Radio>)
-
-    let [defaultSortValue,defaultSortCategory] = [this.sortOptions[0].label,this.categories[0].label];
-    const cIndex = this.categories.findIndex(item => item.id === parseInt(category));
-    defaultSortCategory = cIndex > -1 ? this.categories[cIndex].label : this.categories[0].label;
+    const sortDirection = ["ASC", "DESC"].map((item, index) => <Radio value={item} key={`opt-${index}`}>{item}</Radio>);
+    const [defaultSortValue,defaultCategory] = [this.sortOptions[0].id, Number(category) || this.categories[0].id];
     return (
       <div className="productFilter">
         <div className="searchBar">
           <Row>
-            <Col xs={16} className="inputFilter">
-              <Icon type="search" onClick={this.searchBtn} />
-              <input value={searchText} placeholder="Search any product..." onChange={this.handleInputChange} onKeyUp={this.searchOnEnter} ref={el => this.inputRef = el}/>
+            <Col xs={24} sm={13} md={14} lg={16} className="inputFilter">
+              <Icon type="search" className="prefixIcon" onClick={this.searchBtn} />
+              <input defaultValue={searchText} placeholder="Search any product..." onChange={this.handleInputChange} onKeyUp={this.searchOnEnter} ref={el => this.inputRef = el}/>
+              <Icon type="control" className="suffixIcon" />
             </Col>
-            <Col xs={8} className="sortSelect">
+            <Col xs={24} sm={11} md={10} lg={8} className="categories">
               <label>Categories</label>
-              <Select name="categorySelected" defaultValue={defaultSortCategory} onChange={(e) => this.setState({category: e})}>
+              <Select name="categorySelected" defaultValue={defaultCategory} onChange={this.handleSelectChange}>
                 {categoriesOptions}
               </Select>
             </Col>

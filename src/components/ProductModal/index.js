@@ -16,6 +16,9 @@ export default class ProductModal extends React.Component {
   }
 
   hideProductModal = () => {
+    this.setState({
+      productImages: []
+    });
     this.props.hideProductModal();
   }
 
@@ -27,9 +30,7 @@ export default class ProductModal extends React.Component {
 
   render() {
     let {hasModalDataLoaded,isModalVisible,title,price,ratings,reviews,detailUrl,productImages} = this.state;
-    console.log(this.state);
     ratings = this.roundOffRating(ratings) || this.roundOffRating(reviews && reviews.ratings);
-    console.log(ratings);
     productImages = productImages || [];
     const prodModalDescSkeleton = <Skeleton paragraph={{rows: 5}} loading={!hasModalDataLoaded} active />;
     const prodModalImgSkeleton = <Skeleton title={false} paragraph={false} avatar={{shape:"square", size: 250}} loading={!hasModalDataLoaded} active />;
